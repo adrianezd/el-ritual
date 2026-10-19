@@ -1,0 +1,36 @@
+/* El ritual: lo propio del juego (lo común está en style.css) */
+.tracks { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 4px 0 14px; }
+.track { position: relative; overflow: hidden; padding: 10px 12px; border-radius: var(--radius-md); background: var(--surface); border: 1px solid var(--border); display: flex; flex-direction: column; gap: 2px; }
+.track span { font-size: .78rem; color: var(--muted); }
+.track strong { font-family: var(--font-mono); font-size: 1.05rem; }
+.track i { position: absolute; left: 0; bottom: 0; height: 4px; width: var(--w); transition: width .5s ease; }
+.track.is-clues i { background: var(--accent); }
+.track.is-ritual i { background: var(--accent-2); }
+.track-round { grid-column: 1 / -1; margin: 0; text-align: center; font-size: .85rem; color: var(--muted); }
+.act-grid, .room-grid { display: grid; gap: 10px; margin: 10px 0 16px; }
+.act-grid { grid-template-columns: 1fr; }
+.room-grid { grid-template-columns: 1fr 1fr; }
+.act-card, .room-card { appearance: none; border: 1px solid var(--border-strong); background: var(--surface-strong); color: var(--text); border-radius: var(--radius-lg); padding: 14px; font: inherit; cursor: pointer; text-align: left; display: flex; flex-direction: column; gap: 2px; transition: transform .12s ease, border-color .12s ease; }
+.act-card small { color: var(--muted); }
+.room-card { align-items: center; text-align: center; font-weight: 600; }
+.room-card span { font-size: 1.9rem; line-height: 1.2; }
+.act-card:active, .room-card:active { transform: scale(.97); border-color: var(--accent); }
+.act-card.is-sent, .room-card.is-sent { opacity: .5; }
+.room-report { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 6px 0 4px; }
+.room-box { padding: 10px 12px; border-radius: var(--radius-md); background: var(--surface); border: 1px solid var(--border); text-align: left; }
+.room-box.is-hot { border-color: rgba(var(--accent-2-rgb), .55); background: rgba(var(--accent-2-rgb), .08); }
+.room-name { margin: 0 0 4px; font-weight: 700; }
+.room-who { margin: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.room-who span { padding: 2px 9px; border-radius: 999px; background: var(--surface-strong); font-size: .88rem; }
+.room-who span.is-dead { text-decoration: line-through; opacity: .6; }
+.room-who em { color: var(--faint); font-size: .88rem; }
+.mark { display: block; margin-top: 6px; font-size: .88rem; font-weight: 600; }
+.mark.is-dead { color: var(--danger); }
+.mark.is-sab { color: var(--accent-2); }
+.mark.is-foiled { color: var(--success); }
+.btn + .btn { margin-top: 10px; }
+@media (min-width: 640px) {
+  .act-grid { grid-template-columns: repeat(3, 1fr); }
+  .room-grid { grid-template-columns: repeat(3, 1fr); }
+  .room-report { grid-template-columns: 1fr 1fr; }
+}

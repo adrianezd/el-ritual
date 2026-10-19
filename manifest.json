@@ -1,0 +1,30 @@
+{
+  "name": "El ritual - Juego de fiesta",
+  "short_name": "El ritual",
+  "description": "Investigadores contra sectarios ocultos en una mansión: diez rondas para frenar el ritual.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#06100c",
+  "theme_color": "#06100c",
+  "lang": "es",
+  "categories": [
+    "games",
+    "entertainment"
+  ],
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El ritual — investigadores contra sectarios, juego de fiesta gratis</title>
+<meta name="description" content="Juego de fiesta gratis para 4 a 10 jugadores: investigadores contra sectarios ocultos en una mansión. Diez rondas para reunir pistas o frenar el ritual. Cada uno elige en secreto adónde va y qué hace; luego toca descubrir quién mintió.">
+<meta name="keywords" content="juego de sectarios, juego tipo among us, juego de fiesta, deducción social, juego de traidores, juego para grupos, juego de móvil para fiestas">
+<link rel="canonical" href="https://adrianezd.github.io/el-ritual/">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="icon-512.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#06100c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta property="og:title" content="El ritual — investigadores contra sectarios">
+<meta property="og:description" content="Diez rondas en una mansión: reunid pistas antes de que los sectarios completen el ritual. Gratis, en un móvil o cada uno con el suyo.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adrianezd.github.io/el-ritual/">
+<meta property="og:image" content="https://adrianezd.github.io/el-ritual/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="El ritual">
+<meta name="twitter:description" content="Investigadores contra sectarios ocultos. Juego de fiesta gratis.">
+<meta name="twitter:image" content="https://adrianezd.github.io/el-ritual/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+<link rel="stylesheet" href="sala.css?v=1">
+<link rel="stylesheet" href="juego.css?v=1">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"Game","name":"El ritual","description":"Juego de fiesta de deducción social: investigadores contra sectarios ocultos en una mansión, en diez rondas.","genre":["Juego de fiesta","Deducción social"],"url":"https://adrianezd.github.io/el-ritual/","image":"https://adrianezd.github.io/el-ritual/og-image.png","inLanguage":"es","isAccessibleForFree":true,"numberOfPlayers":{"@type":"QuantitativeValue","minValue":4,"maxValue":10},"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Se parece a Among Us?","acceptedAnswer":{"@type":"Answer","text":"La idea es parecida: tripulantes contra impostores, tareas, sabotajes y reuniones. Pero aquí todo pasa por rondas y en la misma mesa."}},{"@type":"Question","name":"¿Cuánto dura?","acceptedAnswer":{"@type":"Answer","text":"Como mucho diez rondas, unos 20 a 40 minutos."}}]}]}
+</script>
+</head>
+<body>
+
+<header class="site-header hide-in-game">
+  <div class="hero-badge" aria-hidden="true">🕯️</div>
+  <p class="site-kicker">Juego de fiesta · un móvil o cada uno el suyo</p>
+  <h1>El ritual</h1>
+  <p class="tagline">Una mansión, diez noches y una secta escondida entre los investigadores. Buscad pistas antes de que el ritual se complete… y fijaos en quién estaba en cada sala.</p>
+  <ul class="hero-chips">
+    <li>👥 4–10 jugadores</li>
+    <li>⏱️ 20–40 min</li>
+    <li>🗝️ 10 rondas</li>
+  </ul>
+</header>
+
+<div class="game-bar" id="game-bar" hidden>
+  <span class="game-bar-title" id="game-bar-title">Ronda 1</span>
+  <button type="button" class="btn-icon" id="btn-exit">✕ Salir</button>
+</div>
+
+<main>
+  <div id="game-app">
+    <section class="screen" data-screen="setup">
+      <h2 class="visually-hidden">Preparar partida</h2>
+
+      <div class="card">
+        <h3 class="card-title">👥 Jugadores</h3>
+        <div class="stepper-row">
+          <span class="stepper-label" id="player-count-label">Jugadores</span>
+          <div class="stepper" role="group" aria-labelledby="player-count-label">
+            <button type="button" id="btn-player-minus" class="stepper-btn" aria-label="Restar jugador">−</button>
+            <span class="stepper-value" id="player-count-value" aria-live="polite">6</span>
+            <button type="button" id="btn-player-plus" class="stepper-btn" aria-label="Sumar jugador">+</button>
+          </div>
+        </div>
+        <details class="fold">
+          <summary>✏️ Nombres <small>opcional</small></summary>
+          <div class="names-grid" id="names-grid"></div>
+          <button type="button" class="mini-btn" id="btn-shuffle-names">🔀 Mezclar</button>
+        </details>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">🎭 Papeles</h3>
+        <div class="stepper-row">
+          <span class="stepper-label" id="cult-count-label">🕯️ Sectarios <small id="cult-hint">Máximo 1</small></span>
+          <div class="stepper" role="group" aria-labelledby="cult-count-label">
+            <button type="button" id="btn-cult-minus" class="stepper-btn" aria-label="Restar sectario">−</button>
+            <span class="stepper-value" id="cult-count-value" aria-live="polite">2</span>
+            <button type="button" id="btn-cult-plus" class="stepper-btn" aria-label="Sumar sectario">+</button>
+          </div>
+        </div>
+        <p class="setup-hint" id="role-summary"></p>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">⚙️ Opciones</h3>
+        <div class="stepper-row">
+          <span class="stepper-label" id="timer-label">Tiempo de reunión <small id="timer-hint">Con cronómetro</small></span>
+          <div class="stepper" role="group" aria-labelledby="timer-label">
+            <button type="button" id="btn-time-minus" class="stepper-btn" aria-label="Menos tiempo">−</button>
+            <span class="stepper-value" id="time-value" aria-live="polite">2′</span>
+            <button type="button" id="btn-time-plus" class="stepper-btn" aria-label="Más tiempo">+</button>
+          </div>
+        </div>
+        <label class="switch-row"><span>Revelar al echar <small>Se dice qué era quien sale de la mansión</small></span><input type="checkbox" class="switch" id="opt-reveal"></label>
+        <label class="switch-row"><span>Votación secreta <small>Cada uno vota en privado pasando el móvil</small></span><input type="checkbox" class="switch" id="opt-secret-vote"></label>
+        <label class="switch-row"><span>Sonido</span><input type="checkbox" class="switch" id="opt-sound"></label>
+        <label class="switch-row"><span>Vibración</span><input type="checkbox" class="switch" id="opt-vibrate"></label>
+      </div>
+
+      <button type="button" id="btn-start-game" class="btn btn-primary btn-large btn-start">Repartir papeles 🎲</button>
+    </section>
+
+    <section class="screen" data-screen="play" hidden>
+      <div id="play-root"></div>
+    </section>
+  </div>
+
+  <section class="info-section hide-in-game" id="como-jugar">
+    <h2>Cómo jugar</h2>
+    <ol class="how-to-list">
+      <li><strong>Reparto.</strong> Cada uno ve en secreto si es investigador o sectario. Los sectarios se conocen.</li>
+      <li><strong>Cada ronda, en secreto.</strong> Primero eliges qué haces y luego a qué sala vas. Los investigadores buscan pistas o vigilan. Los sectarios fingen, sabotean o atacan.</li>
+      <li><strong>Lo que pasó.</strong> Se ve quién estuvo en cada sala, dónde hubo sabotaje y si apareció alguien muerto. Las pistas se suman entre todos.</li>
+      <li><strong>Sabotaje.</strong> Avanza el ritual un paso y se pierde una pista de esa sala.</li>
+      <li><strong>Ataque.</strong> Solo funciona si en la sala hay tres o más personas, para que no sea evidente. Si un investigador vigila esa sala, el ataque se frustra.</li>
+      <li><strong>Reunión.</strong> Si queréis, debatís y votáis a quién echar de la mansión. Si no, siguiente ronda.</li>
+      <li><strong>Final.</strong> Los investigadores ganan al reunir las pistas o echar a todos los sectarios. La secta gana si completa el ritual, si iguala en número a los investigadores o si se acaba la décima ronda.</li>
+    </ol>
+  </section>
+
+  <section class="info-section hide-in-game" id="faq">
+    <h2>Preguntas frecuentes</h2>
+    <details class="faq-item"><summary>¿Se parece a Among Us?</summary><p>La idea es parecida: tareas, sabotajes y reuniones. Pero aquí todo va por rondas y en la misma mesa.</p></details>
+    <details class="faq-item"><summary>¿Cuántas pistas hacen falta?</summary><p>Tres por investigador más tres. El ritual necesita tres pasos por sectario más tres. El juego te lo dice al prepararlo.</p></details>
+    <details class="faq-item"><summary>¿Se puede jugar cada uno con su móvil?</summary><p>Sí: elige «Con código de sala». Todos eligen a la vez y la partida va mucho más rápida.</p></details>
+    <details class="faq-item"><summary>¿Es gratis?</summary><p>Sí, sin anuncios ni descargas.</p></details>
+  </section>
+</main>
+
+<footer class="site-footer hide-in-game">
+  <nav class="more-games" aria-label="Más juegos de fiesta">
+    <h2>Más juegos de fiesta</h2>
+    <a class="game-link" href="https://adrianezd.github.io/quien-es-el-impostor/"><span class="game-link-emoji" aria-hidden="true">🕵️</span><span><strong>¿Quién es el Impostor?</strong><span>Todos saben la palabra secreta menos uno.</span></span></a>
+    <a class="game-link" href="https://adrianezd.github.io/dibujo-impostor/"><span class="game-link-emoji" aria-hidden="true">✏️</span><span><strong>Dibujo Impostor</strong><span>Todos dibujan lo mismo salvo el impostor, que no sabe que lo es.</span></span></a>
+    <a class="game-link" href="https://adrianezd.github.io/el-dato-falso/"><span class="game-link-emoji" aria-hidden="true">🤥</span><span><strong>El Dato Falso</strong><span>Trivia en la que a los mentirosos se les cuela un dato falso.</span></span></a>
+    <a class="game-link" href="https://adrianezd.github.io/el-pueblo-duerme/"><span class="game-link-emoji" aria-hidden="true">🐺</span><span><strong>El pueblo duerme</strong><span>Lobos contra aldeanos: de noche atacan, de día se vota.</span></span></a>
+    <a class="game-link" href="https://adrianezd.github.io/el-campanario/"><span class="game-link-emoji" aria-hidden="true">🔔</span><span><strong>El campanario</strong><span>Juego de deducción social con narrador automático: el demonio y sus esbirros contra el pueblo.</span></span></a>
+    <a class="game-link" href="https://adrianezd.github.io/noche-de-estacas/"><span class="game-link-emoji" aria-hidden="true">🧛</span><span><strong>Noche de estacas</strong><span>Cazadores contra vampiros, sin narrador. Los fantasmas siguen votando y protegiendo.</span></span></a>
+    <a class="game-link is-current" href="https://adrianezd.github.io/el-ritual/" aria-current="page"><span class="game-link-emoji" aria-hidden="true">🕯️</span><span><strong>El ritual</strong><span>Investigadores contra sectarios ocultos en una mansión: diez rondas para frenar el ritual.</span></span></a>
+    <a class="game-link" href="https://adrianezd.github.io/el-presidente-y-la-bomba/"><span class="game-link-emoji" aria-hidden="true">💣</span><span><strong>El presidente y la bomba</strong><span>Dos salas, rondas cronometradas e intercambio de rehenes: salva al presidente o hazlo volar.</span></span></a>
+    <a class="game-link" href="https://adrianezd.github.io/el-club-clandestino/"><span class="game-link-emoji" aria-hidden="true">🎭</span><span><strong>El club clandestino</strong><span>Fiestas secretas, sospecha creciente y chivatos que venden al club. Juego largo de faroles.</span></span></a>
+  </nav>
+  <p>El ritual es un juego de fiesta original, no afiliado a ninguna marca comercial.</p>
+</footer>
+
+<script src="kit.js?v=1"></script>
+<script src="sala.js?v=1"></script>
+<script src="mesa.js?v=1"></script>
+<script src="script.js?v=1"></script>
+</body>
+</html>

@@ -7,7 +7,7 @@ Juego de fiesta para 4 a 10 jugadores: investigadores contra sectarios ocultos e
 ## Dos modos
 
 - **Mismo móvil:** el móvil se pasa de mano en mano para las fases secretas y hace de narrador. Funciona sin conexión.
-- **Con código de sala:** uno crea la sala y elige los ajustes; el resto entra con el código y cada uno juega en su móvil. Los móviles se comunican por [ntfy.sh](https://ntfy.sh) (sin cuentas), así que hace falta internet.
+- **Con código de sala:** uno crea la sala y elige los ajustes; el resto entra con el código y cada uno juega en su móvil. Los móviles se comunican por servidores MQTT públicos por WebSocket (varios a la vez, sin cuentas ni límite de envíos), con [ntfy.sh](https://ntfy.sh) de respaldo (sin cuentas), así que hace falta internet.
 
 ## Reglas
 
